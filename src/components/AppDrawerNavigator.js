@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../style/Colors';
 import {
   HomeScreen,
-  Profile,
   LinkAccount,
   UpcomingExpiryDtaes,
   Archives,
@@ -17,7 +16,9 @@ import {
   StaticScreens,
   Logout,
   ContactUs,
+  Profile
 } from '../screens';
+import DrawerUserDetail from './DrawerUserDetail'
 
 const { height, width } = Dimensions.get('window');
 
@@ -30,9 +31,8 @@ const CustomDrawerContentComponent = props => (
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Text style={{fontSize: 20, fontWeight: '500', color: 'white'}}>
-        Rahul Mishra
-      </Text>
+       
+      <DrawerUserDetail {...props} />
     </View>
 
     <DrawerNavigatorItems
@@ -52,6 +52,7 @@ const AppDrawerNavigator = createDrawerNavigator(
         drawerIcon: () => <Icon name="home" color="#fff" size={20} />,
       },
     },
+    
     LinkAccount: {
       screen: LinkAccount,
       navigationOptions: {
@@ -92,6 +93,13 @@ const AppDrawerNavigator = createDrawerNavigator(
       navigationOptions: {
         drawerLabel: 'Static Screen',
         drawerIcon: () => <Icon name="home" color="#fff" size={20} />,
+      },
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        drawerLabel: 'Update Profile',
+        drawerIcon: () => <Icon name="edit" color="#fff" size={20} />,
       },
     },
     Logout: {

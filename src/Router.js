@@ -1,62 +1,65 @@
-import { createSwitchNavigator, createAppContainer, createDrawerNavigator } from "react-navigation";
-import {createStackNavigator} from "react-navigation-stack";
-
 import {
-    LoginScreen,
-    SplashScreen,
-    HomeScreen,
-    ForgotPassword
-} from './screens';
+  createSwitchNavigator,
+  createAppContainer,
+  createDrawerNavigator,
+} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+
+import {LoginScreen, SplashScreen, HomeScreen, ForgotPassword} from './screens';
+import PassportHome from './screens/Passport/PassportHome';
 import AppDrawerNavigator from './components/AppDrawerNavigator';
 
 const commonStack = {
-    Home: {
-        screen: HomeScreen,
-        
-    }
+  PassportHome: {
+    screen: PassportHome,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
 };
 const authStack = {
-    Splash: {
-        screen: SplashScreen,
-        navigationOptions:{
-            headerShown: false
-          }
-      },
-    Login: {
-      screen: LoginScreen,
-      navigationOptions:{
-        headerShown: false
-      }
+  Splash: {
+    screen: SplashScreen,
+    navigationOptions: {
+      headerShown: false,
     },
-    
-    ForgotPassword: {
-      screen: ForgotPassword,
-      navigationOptions:{
-        headerShown: false
-      }
-    }
-};
-const AppStackAuth = createStackNavigator(authStack)
+  },
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
 
-const AppCommon = createStackNavigator(commonStack)
+  ForgotPassword: {
+    screen: ForgotPassword,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+};
+const AppStackAuth = createStackNavigator(authStack);
+
+const AppCommon = createStackNavigator(commonStack);
 
 // Create switch navigator
-const AppSwitchNavigator = createSwitchNavigator({
-
+const AppSwitchNavigator = createSwitchNavigator(
+  {
     InitialScreen: {
-        screen: SplashScreen
+      screen: SplashScreen,
     },
     Auth: AppStackAuth,
-    App: AppDrawerNavigator,
-    // Drawer: AppDrawerNavigator,
-  }, {
+    App: AppCommon,
+    Drawer: AppDrawerNavigator,
+  },
+  {
     initialRouteName: 'InitialScreen',
     headerMode: 'none',
     navigationOptions: {
-      gesturesEnabled: false
-    }
-  });
+      gesturesEnabled: false,
+    },
+  },
+);
 const Router = createAppContainer(AppSwitchNavigator);
 
 export default Router;
-
